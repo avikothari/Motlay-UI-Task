@@ -31,8 +31,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm()
-
-    if (this.sharedService.get('booking_id')) {
+    if (JSON.parse(this.sharedService.get('booking_id'))) {
       this.populateForm()
     }
   }
@@ -165,7 +164,7 @@ export class HomeComponent implements OnInit {
     let all_bookings = []
 
     if (this.is_update) {
-      all_bookings = (JSON.parse(this.sharedService.get('bookings')) ?? []).filter((el: any) => el.booking_id !== (atob(this.activatedRoute.snapshot.queryParamMap.get('id') ?? '')))
+      all_bookings = (JSON.parse(this.sharedService.get('bookings')) ?? []).filter((el: any) => el.booking_id !== (atob(this.sharedService.get('booking_id') ?? '')))
 
       all_bookings = all_bookings.concat(bookings)
     } else {
