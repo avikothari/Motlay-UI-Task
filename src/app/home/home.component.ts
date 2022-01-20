@@ -179,6 +179,7 @@ export class HomeComponent implements OnInit {
       data: { bookings: bookings, is_update: this.is_update }
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.sharedService.remove('booking_id')
       this.router.navigate(['passenger-details'])
 
       this.sharedService.store('date_of_journey',
