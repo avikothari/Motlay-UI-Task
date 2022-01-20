@@ -1,0 +1,27 @@
+<nav class="nav">
+    <div class="nav-l">
+        <div class="nav__logo">
+            TICKT!
+        </div>
+        <ul class="nav__menu">
+            <li class="nav__menu-item" *ngFor="let element of menu_items" [routerLink]="element.route"
+                routerLinkActive="nav__menu-item_active" [routerLinkActiveOptions]="{exact: true}">
+                <span class="nav__menu-item_icon material-icons">{{element.icon}}</span>
+                <span class="nav__menu-item_name ">{{element.name}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="nav-r">
+
+        <div class="nav__profile">
+            <div class="nav__profile_tile">
+                <span class="nav__profile_tile_title">
+                    <span>{{username}}</span>
+                </span>
+
+            </div>
+        </div>
+    </div>
+
+</nav>

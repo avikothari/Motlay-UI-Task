@@ -1,0 +1,194 @@
+@use '../../assets/scss/'as *;
+
+.home__container {
+    padding          : 20px 7.32vw 0;
+    margin-top       : 70px;
+    scroll-margin-top: 70px;
+
+    &-title {
+        font-size  : 20px;
+        padding    : 10px 0;
+        font-weight: 600;
+    }
+
+    &-layout {
+        display              : grid;
+        grid-template-columns: repeat(9, minmax(10px, 1fr));
+        grid-gap             : 10px;
+
+        &_legend {
+            grid-column    : span 1;
+            display        : flex;
+            justify-content: space-between;
+            padding        : 5px 10px;
+            width          : max-content;
+            margin         : 0 5px;
+
+            @include for_size('ipad-phone') {
+                grid-column: span 3;
+            }
+
+            &-seat {
+                @mixin common_legend_module($type) {
+                    padding      : 0 10px;
+                    border       : 2px solid #dedede;
+                    border-radius: 5px;
+                    margin       : 0 5px;
+
+                    @if $type=="available" {
+                        background-color: color(light);
+                    }
+
+                    @else if $type=="selected" {
+                        background-color: color(success);
+                    }
+
+                    @else if $type=='booked' {
+                        background-color: color(danger);
+                    }
+                }
+
+                &-available {
+                    @include common_legend_module('available')
+                }
+
+                &-selected {
+                    @include common_legend_module('selected')
+                }
+
+                &-booked {
+                    @include common_legend_module('booked')
+                }
+            }
+        }
+    }
+
+    &-sub_title {
+        margin   : 10px 0;
+        font-size: 15px;
+    }
+}
+
+.home {
+    display              : grid;
+    grid-template-columns: repeat(12, minmax(5px, 1fr));
+    grid-gap             : 48px;
+
+    @include for_size("ipad-phone") {
+        grid-gap: 0px;
+    }
+
+    &__seats {
+        grid-column    : span 2;
+        display        : flex;
+        justify-content: space-between;
+        align-items    : stretch;
+        gap            : 16px;
+
+        @include for_size('ipad-phone') {
+            grid-column: 1/-1;
+        }
+
+        &-window {
+            margin         : 5px 0;
+            text-align     : center;
+            display        : flex;
+            align-items    : center;
+            justify-content: center;
+            writing-mode   : vertical-lr;
+            letter-spacing : 20px;
+        }
+
+        &-passage {
+            margin        : 18px;
+            text-align    : center;
+            display       : flex;
+            align-items   : center;
+            writing-mode  : vertical-lr;
+            letter-spacing: 5px;
+        }
+
+        &-grid {
+            padding              : 0;
+            display              : grid;
+            grid-template-columns: repeat(2, minmax(50px, 1fr));
+            text-align           : center;
+            grid-gap             : 5px;
+
+            &_list {
+                padding      : 5px 10px;
+                border       : 2px solid #dedede;
+                border-radius: 5px;
+                cursor       : pointer;
+
+                &-selected {
+                    background: color(success);
+                    color     : color(light);
+                }
+
+                &-booked {
+                    background    : color(danger);
+                    color         : color(light);
+                    cursor        : default;
+                    pointer-events: none;
+                }
+            }
+
+        }
+    }
+
+    &__form {
+        grid-column: 6/-1;
+        margin: 50px 0;
+
+        @include for_size('ipad-phone') {
+            grid-column: 1/-1;
+            margin: 20px ;
+        }
+
+        &-error {
+            background-color: #FADCDE;
+            color           : color(danger);
+            display         : flex;
+            align-items     : center;
+            padding         : 8px;
+            margin-bottom   : 1rem;
+            border-radius   : 4px;
+
+            &_text {
+                @include fluid-font(12px, 15px);
+                margin-left: 4px;
+
+            }
+        }
+
+        &-input {
+            width: 100%;
+
+            &_text {
+                font-weight: 600;
+                font-size  : 16px;
+                margin     : 0 10px;
+            }
+        }
+
+        &-action {
+
+            margin: 20px 0;
+
+            &_btn {
+                box-shadow      : 0px 0px 5px #8f8f8f;
+                border          : 3px solid color(primary-color);
+                border-radius   : 3px;
+                background-color: color(primary-color);
+                color           : #fff;
+                font-size       : 18px;
+                font-weight     : bold;
+                padding         : 5px 20px;
+                width           : 100%;
+            }
+        }
+
+
+    }
+}

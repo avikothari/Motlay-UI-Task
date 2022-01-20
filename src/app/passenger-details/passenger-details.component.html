@@ -1,0 +1,88 @@
+<main class="passenger__container">
+
+    <div class="passenger__container-flex">
+        <div class="passenger__container-flex_title">Passenger Details</div>
+        <mat-form-field appearance="outline">
+            <mat-label>Date of Journey</mat-label>
+            <input matInput [formControl]="date_of_journey" #input_etd [matDatepicker]="picker_etd"
+                (focus)="picker_etd.open()" (dateChange)="generateSequence($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker_etd"></mat-datepicker-toggle>
+            <mat-datepicker #picker_etd (closed)="input_etd.blur()"></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="passenger__container-error" *ngIf="passengers.length === 0">
+        {{date_of_journey.value === '' ? 'Please select date of journey to get the passenger details' : 'No Passengers
+        Found'}}
+    </div>
+
+    <div class="passenger__container-table" *ngIf="passengers.length > 0">
+        <div style="overflow: auto;">
+            <table class="passenger__details-table">
+                <thead>
+                    <tr class="passenger__details-table_header_row">
+                        <td>
+                            <div class="passenger__details-table_header_row_content">Boarding Sequence</div>
+                        </td>
+                        <td>
+                            <div class="passenger__details-table_header_row_content">Booking ID</div>
+                        </td>
+                        <td>
+                            <div class="passenger__details-table_header_row_content">Seat Number</div>
+                        </td>
+                        <td>
+                            <div class="passenger__details-table_header_row_content">Mobile Number</div>
+                        </td>
+                        <td>
+                            <div class="passenger__details-table_header_row_content">Status</div>
+                        </td>
+                        <td>
+                            <div class="passenger__details-table_header_row_content">Actions</div>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let passenger of passengers;let i = index" class="passenger__details-table_data_row">
+                        <td>
+                            <div class="passenger__details-table_data_row_content">{{i+1}}</div>
+                        </td>
+                        <td>
+                            <div class="passenger__details-table_data_row_content">{{passenger.booking_id}}</div>
+                        </td>
+                        <td>
+                            <div class="passenger__details-table_data_row_content" style="display: flex;justify-content: space-around;">
+                                {{passenger.section}}{{passenger.seat_no}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="passenger__details-table_data_row_content ">
+                                <a style="text-decoration: none; color: black;" href="tel:{{passenger.mobile}}"
+                                    class="material-icons">phone</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="passenger__details-table_data_row_content">
+                                <button class="passenger__details-table_btn" (click)="markAsArrived(passenger)" *ngIf="!passenger.arrival_status">
+                                    <span class="material-icons" *ngIf="!show_btn_text">check</span>
+                                    <span *ngIf="show_btn_text">Mark as Arrived</span>
+                                </button>
+                                <span *ngIf="passenger.arrival_status" class="passenger__details-table_data_row_content-arrived">Arrived</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center; justify-content: center;">
+                                <div class="passenger__details-table_action_primary" (click)="updateBooking(passenger)">
+                                    <span
+                                        class="material-icons passenger__details-table_action_primary_icon">edit</span>
+                                    <span class="passenger__details-table_action_primary_text">Update</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</main>

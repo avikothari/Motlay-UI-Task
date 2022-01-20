@@ -1,0 +1,42 @@
+@use '../../assets/scss/'as *;
+
+.dialog {
+    &__content {
+
+        &-title {
+            text-align : center;
+            font-size  : 15px;
+            font-weight: 600;
+        }
+
+        &-id {
+            text-align : center;
+            font-size  : 18px;
+            font-weight: 600;
+            color      : color(primary-color)
+        }
+
+        &-seats {
+            display: flex;
+            justify-content: center;
+            margin    : 10px 0;
+
+            &_no {
+                padding      : 5px 10px;
+                border       : 2px solid #dedede;
+                border-radius: 5px;
+                background   : color(success);
+                margin       : 0 10px;
+                color        : color(light);
+            }
+        }
+
+
+
+    }
+
+    &__btn {
+        background: color(primary-color);
+        color     : color(light);
+    }
+}

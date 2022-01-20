@@ -1,0 +1,38 @@
+@use './colors' as *;
+
+@mixin for_size($size) {
+    @if $size == "ipad" {
+        @media only screen and (max-width: 991px) and (min-width: 768px) {
+            @content;
+        }
+    } @else if $size == "phone" {
+        @media only screen and (max-width: 767px) and (min-width: 320px) {
+            @content;
+        }
+    } @else if $size == "ipad-phone" {
+        @media only screen and (max-width: 991px) and (min-width: 320px) {
+            @content;
+        }
+    } @else if $size == "xs" {
+        @media only screen and (max-width: 420px) and (min-width: 320px) {
+            @content;
+        }
+    }
+}
+
+
+@mixin btn-primary {
+    background-color: color(success);
+    color: color(light);
+    border: 0;
+    border-radius: 5px;
+    width: max-content;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all .3s ease-in;
+    
+    &:hover {
+        cursor: pointer;
+        background-color: #3dad64;
+    }
+}

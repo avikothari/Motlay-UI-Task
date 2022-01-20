@@ -1,0 +1,94 @@
+<main class="home__container">
+
+    <div class="home__container-title">BOOK SEATS</div>
+
+    <div class="home__container-sub_title">SEAT LAYOUT</div>
+    <div class="home__container-layout">
+        <div class="home__container-layout_legend">
+            <span class="home__container-layout_legend-seat-available"></span>
+            <div>Available</div>
+        </div>
+        <div class="home__container-layout_legend">
+            <span class="home__container-layout_legend-seat-selected"></span>
+            <div>Selected</div>
+        </div>
+        <div class="home__container-layout_legend">
+            <span class="home__container-layout_legend-seat-booked"></span>
+            <div>Booked</div>
+        </div>
+    </div>
+
+    <div class="home">
+
+        <div class="home__seats">
+            <div class="home__seats-window">WINDOW</div>
+            <ul class="home__seats-grid">
+                <li class="home__seats-grid_list" *ngFor="let dummy of ' '.repeat(30).split('');let i = index"
+                    (click)="toggleSeatSelection(i,'A')" [ngClass]="{
+                        'home__seats-grid_list-selected' : isSelected(i,'A'),
+                        'home__seats-grid_list-booked' : !isSelected(i,'A') && isBooked(i,'A')}">
+                    {{'A' + (i+1)}}
+                </li>
+            </ul>
+            <div class="home__seats-passage">ENTRY <span class="material-icons">arrow_forward</span></div>
+            <ul class="home__seats-grid">
+                <li class="home__seats-grid_list" *ngFor="let dummy of ' '.repeat(30).split('');let j = index"
+                    (click)="toggleSeatSelection(j,'B')" [ngClass]="{
+                        'home__seats-grid_list-selected' : isSelected(j,'B'),
+                        'home__seats-grid_list-booked' : !isSelected(j,'B') && isBooked(j,'B')}">
+                    {{'B' + (j+1)}}
+                </li>
+            </ul>
+            <div class="home__seats-window">WINDOW</div>
+        </div>
+        <form class="home__form" [formGroup]="booking_form">
+
+            <div class="home__form-error" *ngIf="error_msg">
+                <span class="material-icons">error_outline</span>
+                <span class="home__form-error_text">{{error_msg}}</span>
+            </div>
+
+
+            <mat-form-field appearance="outline" class="home__form-input">
+                <mat-label>Mobile Number</mat-label>
+                <ngx-mat-intl-tel-input inputmode="number" formControlName="mobile" [preferredCountries]="['in']"
+                    [enableSearch]="true">
+                </ngx-mat-intl-tel-input>
+                <mat-error *ngIf="formControls.mobile.hasError('required')">
+                    Please enter mobile number
+                </mat-error>
+                <mat-error *ngIf="formControls.mobile.hasError('validatePhoneNumber')">
+                    Please enter valid mobile number
+                </mat-error>
+
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="home__form-input">
+                <mat-label>Date of Journey</mat-label>
+                <input matInput formControlName="date_of_journey" #input_etd [matDatepicker]="picker_etd"
+                    (focus)="picker_etd.open()" [min]="today">
+                <mat-datepicker-toggle matSuffix [for]="picker_etd"></mat-datepicker-toggle>
+                <mat-datepicker #picker_etd (closed)="input_etd.blur()"></mat-datepicker>
+                <mat-error *ngIf="formControls.date_of_journey.hasError('required')">
+                    Please select journey date
+                </mat-error>
+            </mat-form-field>
+
+            <mat-chip-list class="home__form-input">
+                <mat-label>Seats: </mat-label><br>
+                <mat-chip *ngFor="let seat of selected_seats">
+                    {{seat.section}}{{seat.seat_no}}
+                </mat-chip>
+                <div class="home__form-input_text" *ngIf="selected_seats.length === 0">No Seats Selected</div>
+            </mat-chip-list>
+
+
+            <div class="home__form-action">
+                <button mat-button color="primary" class="home__form-action_btn" (click)="bookSeats()">
+                    {{is_update? 'UPDATE' : 'BOOK'}}
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</main>

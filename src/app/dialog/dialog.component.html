@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Booking Successful</h2>
+<mat-dialog-content class="dialog-content">
+    <ng-container>
+        <div class="dialog__content-title">Booking ID: <span
+                class="dialog__content-id">{{data.bookings[0].booking_id}}</span>
+        </div>
+
+        <div class="dialog__content-seats">
+            <div class="dialog__content-seats_no" *ngFor="let seat of data.bookings">{{seat.section}}{{seat.seat_no}}
+            </div>
+        </div>
+    </ng-container>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="dialog__btn">Close</button>
+</mat-dialog-actions>
