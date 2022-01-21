@@ -202,7 +202,7 @@ export class HomeComponent implements OnInit {
       seat.date_of_journey === this.sharedService.dateFormat(this.booking_form.get('date_of_journey')?.value)
     )
 
-    return filterd_bookings.length === 6
+    return filterd_bookings.length >= 6
   }
 
 
